@@ -1,0 +1,135 @@
+Middleware: Se refiere a un tipo de software intermedio que se utiliza para procesar las solicitudes http que llegan a una aplicación web antes de ser manejadas por la función de enrutamiento principal
+Los middleware son funciones que se ejecutan en el medio flujo de solicitud y respuesta de una aplicación web y pueden realizar diversas tares como autenticación, validación de datos, registro de solicitudes, compresi´n de respuestas, entre otras.
+Diferencias entre PUT y PATCH
+
+PUT: Reemplaza el elemento con lo que le envíes, conserva el valor que modificas, elimina los demás
+PATCH: Solo cambia el valor que deseas, reemplaza únicamente con lo que le estás enviando
+manteniendo demás valores sin modificar ni eliminar
+
+PUT: se utiliza para actualizar o reemplazar completamente un recurso existente en un servidor web
+Cuando haces una solicitud PUT, estás diciendo al servidor que tome la información proporcionada y la utilice para reemplazar completamente el recurso en la ubicación especificada
+Por ejemplo, si tienes un objeto JSON que representa un producto y haces una solicitud PUT al servidor con ese objeto, el servidor reemplazara completamente los datos del producto existente con los datos proporcionados en la solicitud PUT
+
+Patch se utiliza para realizar modificaciones parciales en un recurso existente en un servidor web
+En lugar de reemplazar completamente el producto como lo hace PUT, PATCH permite realizar cambios especificos en los datos del recurso sin afectar el resto de la información 
+Po ejemplo si tienes un objeto json que representa un producto y haces una solicitud patch al servidor con una pqueña parte delos satos actualizados (por ejemplo, cambiar solo la disponibilidad), el ervidor aplicará eos cambio sin afectar otro detalles del producto
+
+PUT ACTUALIZA COMPLETAMENTE PATCH MODIFICA PARTES DE UN recurso
+
+Tipo de testing en node js y api's
+
+Unit Testing: Verificar que partes individuales en nuestro código funcionen; tales como crear el servidor, visitar una ruta, debemos revisar que cada pieza funcione como esperamos antes de integrarla con otras
+Integration testing: Una vez que revisamos que algunas piezas de código funcionen por si solas, es momento de revisar cuando 2 o más se unen, tales como visitar una rutay obtener datos, o enviar una petición post, validar y entonces crear el producto
+Jest es un frameworks para aplicar testing
+Supertest jest nos da una serie de funciones para probar el código, pero con supertest podremos realizar peticiones hacia nuestra API y revisar que el código funcione como esperamos
+Con supertest podremos realizar pruebas de integración entre las url's de nuestra api y el orm
+
+Para limpiar base de datos
+    // "db":"ts-node ./src/data --clear"
+    "pretest":"ts-node ./src/data --clear" //Comando especial que se ejecuta antes de test
+
+Code Coverage
+
+Mide que porcentaje del código de un programa ha sido probado. Cuanto mayor sea la cobertura de código, más exhaustivas son las pruebas, lo que a menudo se considera un indicador positivo de la calidad del software
+
+Lines coverage mide que porcentaje de las lineas de codigo de ese archivo se ejecuto al menos una vez durante las pruebas. Garantiza que tosas las lineas de ese codigo se ejecutan
+
+Statements mide la cobertura de instrucciones, evalúa porciones de código en lugar de lineas completas
+Brnch mide si las ramificaciones son evaluadas tanto en su estado verdadero como en falso
+Funcs mide el porcentaje de funciones, que no se tengan funciones sin haber lloamado al menos una vez
+
+Mock para simular exepciones en jest un mock se refiere a una técnica para las pruebas para simular el comportamiento de ciertos módulos, funciones u objetos
+El uso de expect.stringContaining("Hubo un error") en conjunto con toHaveBeenCalledWith es útil cuando deseas verificar que una función fue llamada con un argumento que contiene una cadena específica, pero no te importa que haya otros caracteres antes o después de esa cadena.
+--detectOpenHandles es una herramienta útil para identificar y depurar problemas relacionados con recursos no cerrados en las pruebas, ayudando a asegurar que las pruebas de Jest se completen de manera limpia y eficiente.
+
+Documentación de API's
+
+La documentación de una API es contenido técnico que describe una Api a detalle 
+Incluye instrucciones sobre como utilizar una API de forma correcta como cuales son sus endpoints soportados, tipos de petición, que valores soporta y más
+Los endpoints en una base de datos generalmente hacen referencia a las rutas o puntos de acceso de una API que interactúa con esa base de datos. Estos endpoints permiten que las aplicaciones envíen peticiones para realizar operaciones en la base de datos, como leer, escribir, actualizar o eliminar datos. Las peticiones que se envían a estos endpoints se pueden clasificar según el tipo de operación que se quiere realizar. Los tipos de peticiones son parte del protocolo HTTP, y se corresponden con los tipos de acciones que se desean ejecutar en la base de datos a través de la API.
+Una vez que una API es publicada, la documentación se asegura que otra herramienta (interna o externa) sepan que se puede y como utilizarla
+Tipos de Peticiones HTTP
+Las peticiones HTTP más comunes para interactuar con bases de datos son las siguientes:
+
+GET:
+
+Descripción: Se utiliza para recuperar o consultar datos de la base de datos.
+Uso: No debe modificar ningún dato en el servidor. Simplemente solicita información.
+Ejemplo:
+Endpoint: GET /api/products
+Descripción: Recuperar una lista de productos.
+POST:
+
+Descripción: Se utiliza para crear nuevos datos en la base de datos.
+Uso: Envía datos al servidor para que cree una nueva entrada o recurso.
+Ejemplo:
+Endpoint: POST /api/products
+Descripción: Crear un nuevo producto en la base de datos. En el cuerpo de la petición (body), se envían los datos del producto (nombre, precio, etc.).
+PUT:
+
+Descripción: Se utiliza para actualizar o reemplazar datos completos en la base de datos.
+Uso: Reemplaza completamente el recurso en la base de datos con los datos proporcionados.
+Ejemplo:
+Endpoint: PUT /api/products/123
+Descripción: Actualizar el producto con ID 123 con los nuevos datos enviados en el cuerpo de la petición.
+PATCH:
+
+Descripción: Similar a PUT, pero se utiliza para actualizar parcialmente un recurso, es decir, solo las partes específicas que necesitan ser modificadas.
+Uso: No reemplaza el recurso completo, solo actualiza los campos que se especifican.
+Ejemplo:
+Endpoint: PATCH /api/products/123
+Descripción: Actualizar solo ciertos campos del producto con ID 123, como el precio o la descripción, sin afectar otros campos.
+DELETE:
+
+Descripción: Se utiliza para eliminar datos de la base de datos.
+Uso: Elimina un recurso o varios recursos del servidor.
+Ejemplo:
+Endpoint: DELETE /api/products/123
+Descripción: Eliminar el producto con ID 123 de la base de datos.
+Ejemplo de Endpoints para una API de Productos
+Aquí tienes una serie de ejemplos de cómo podrían ser los endpoints de una API RESTful para interactuar con una base de datos de productos:
+
+Método	Endpoint	Descripción
+GET	/api/products	Recuperar todos los productos.
+GET	/api/products/{id}	Recuperar un producto específico por ID.
+POST	/api/products	Crear un nuevo producto.
+PUT	/api/products/{id}	Reemplazar un producto por completo.
+PATCH	/api/products/{id}	Actualizar parcialmente un producto.
+DELETE	/api/products/{id}	Eliminar un producto específico.
+Otros Tipos de Peticiones
+Además de los métodos HTTP mencionados (GET, POST, PUT, PATCH, DELETE), hay otros métodos menos comunes, pero que también se usan en algunos escenarios:
+
+HEAD: Similar a GET, pero solo devuelve los encabezados de la respuesta, no el cuerpo. Se usa comúnmente para verificar si un recurso existe sin recuperar sus datos.
+
+OPTIONS: Se usa para obtener las opciones de comunicación con el servidor. Es útil para saber qué métodos HTTP son soportados por un servidor para un recurso dado.
+
+Resumen:
+GET: Obtener datos (lectura).
+POST: Crear datos (inserción).
+PUT: Reemplazar datos (actualización completa).
+PATCH: Actualizar parcialmente datos.
+DELETE: Eliminar datos.
+Cuando trabajas con una base de datos a través de una API, estos son los métodos típicos que utilizarás para interactuar con los recursos de la base de datos (como productos, usuarios, pedidos, etc.). Los endpoints de la API corresponden a rutas que definen las operaciones que se pueden realizar sobre esos recursos, y el tipo de petición (GET, POST, PUT, etc.) determina la acción que se llevará a cabo.
+
+¿Por qué documentar una API?
+
+La principla razon porque documentar una API es para que sea utilizada de forma correcta
+Otra razón es para tener mayor adopciópn, una buena documentación hará que sea claro que funcionalidad hay diponible y los usuarios podrán sacar mayor provecho
+reduce costos de soporte
+
+Interfaz de programación de aplicaciones
+Una API (Interfaz de Programación de Aplicaciones, por sus siglas en inglés: Application Programming Interface) es un conjunto de definiciones y protocolos que permiten que diferentes aplicaciones se comuniquen entre sí. Una API define las formas en que los programas interactúan, proporcionando un mecanismo para que una aplicación solicite servicios o datos de otra sin necesidad de entender su implementación interna.
+
+¿Qué es una API en términos simples?
+Imagina que estás en un restaurante. El menú que te entregan es como la documentación de la API, que te muestra qué opciones (funciones) puedes pedir. El camarero (la API) lleva tu pedido a la cocina (otra aplicación o servicio), y luego te trae la respuesta (el resultado de tu solicitud, como un plato de comida). Como cliente, no necesitas saber cómo se cocina el plato, solo necesitas hacer el pedido correcto.
+
+Tipos de APIs
+API Web (RESTful APIs):
+
+Son APIs que utilizan protocolos web (HTTP/HTTPS) para que diferentes aplicaciones se comuniquen a través de la web.
+Un tipo común de API web es la API RESTful. Estas APIs siguen los principios de arquitectura REST (Representational State Transfer), que se basan en operaciones HTTP (GET, POST, PUT, DELETE).
+Ejemplo de una API RESTful:
+GET /api/products: Recupera todos los productos.
+POST /api/products: Crea un nuevo producto.
+PUT /api/products/{id}: Actualiza un producto con el ID especificado.
+DELETE /api/products/{id}: Elimina un producto con el ID especificado.
